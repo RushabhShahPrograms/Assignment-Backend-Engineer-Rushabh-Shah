@@ -5,7 +5,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
 from .serializers import ImageSerializer
 from .utils import process_image
-from .models import UploadedImage
+from .models import UploadedImage,ColorResult
 import base64
 
 class ImageUploadView(APIView):
@@ -21,9 +21,14 @@ class ImageUploadView(APIView):
                 image_data = image_instance.image.read()
                 try:
                     colors, image_base64 = process_image(image_data)
+
+                    color_result = ColorResult.objects.create(results=colors)
+                    # color_result.save()
+
                     response_data = {
                         "colors": colors,
-                        "image": image_base64.decode('utf-8')
+                        "image": image_base64.decode('utf-8'),
+                        "strip_id": color_result.strip_id
                     }
                     return Response(response_data, status=status.HTTP_201_CREATED)
                 except Exception as e:
