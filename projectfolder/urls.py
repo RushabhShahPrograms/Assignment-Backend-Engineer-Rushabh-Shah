@@ -30,7 +30,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('appfolder.urls'))
+    path('api/', include('appfolder.urls'))
 ]
 
 if settings.DEBUG:
