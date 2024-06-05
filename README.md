@@ -1,14 +1,14 @@
 ## Documentation
 
 For your local machine create an virual environment:
-```
+```python
 pip install virtualenv
 virtualenv venv
 ```
 
 Activate the venv and then write
 
-```
+```python
 pip install -r requirements.txt
 ```
 
@@ -16,10 +16,7 @@ Tech Stack:
 Python, Django, PostgreSQL, Vanilla JS
 
 Further do this process:
-
-cd projectfolder
-
-```
+```python
 python manage.py makemigrations
 python manage.py migrate #migrating into database
 python manage.py runserver #running in localhost
