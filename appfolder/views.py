@@ -16,14 +16,14 @@ class ImageUploadView(APIView):
 
         if file_serializer.is_valid():
             file_serializer.save()
-            image_instance = UploadedImage.objects.last()  # Get the latest uploaded image
+            image_instance = UploadedImage.objects.last()
             if image_instance:
-                image_data = image_instance.image.read()  # Read image data from the model
+                image_data = image_instance.image.read()
                 try:
-                    colors, image_base64 = process_image(image_data)  # Process image data
+                    colors, image_base64 = process_image(image_data)
                     response_data = {
                         "colors": colors,
-                        "image": image_base64.decode('utf-8')  # Convert image data to base64 string
+                        "image": image_base64.decode('utf-8')
                     }
                     return Response(response_data, status=status.HTTP_201_CREATED)
                 except Exception as e:
@@ -33,8 +33,6 @@ class ImageUploadView(APIView):
                 return Response({"error": "No image found in the database"}, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 
 def upload_page(request):

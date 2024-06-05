@@ -33,7 +33,7 @@ def process_image(image_data):
     labels = ['URO', 'BIL', 'KET', 'BLD', 'PRO', 'NIT', 'LEU', 'GLU', 'SG', 'PH']
     results = {label: rgb for label, rgb in zip(labels, rgb_values)}
 
-    # Convert the image to base64 string
+    # image to base64 string
     _, image_encoded = cv2.imencode('.png', cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
     image_base64 = base64.b64encode(image_encoded)
 
