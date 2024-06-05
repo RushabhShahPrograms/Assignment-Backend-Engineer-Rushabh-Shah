@@ -1,0 +1,32 @@
+<!-- analyzer/templates/upload.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Urine Strip Analyzer</title>
+</head>
+<body>
+    <h1>Upload Urine Strip Image</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="image" id="image" accept="image/*">
+        <button type="submit">Upload</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData();
+            formData.append('image', document.getElementById('image').files[0]);
+
+            fetch('/api/upload/', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+              .then(data => {
+                  let resultDiv = document.getElementById('result');
+                  resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+              }).catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
