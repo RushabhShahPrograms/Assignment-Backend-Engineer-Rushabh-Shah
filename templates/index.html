@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Urine Strip Analyzer</title>
+    <style>
+        #imageContainer img {
+            width: 10;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <h1>Upload Urine Strip Image</h1>
@@ -11,6 +17,7 @@
         <input type="file" name="image" id="image" accept="image/*">
         <button type="submit">Upload</button>
     </form>
+    <div id="imageContainer"></div>
     <div id="result"></div>
     <script>
         document.getElementById('uploadForm').addEventListener('submit', function(event) {
@@ -24,7 +31,14 @@
             }).then(response => response.json())
               .then(data => {
                   let resultDiv = document.getElementById('result');
-                  resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                  resultDiv.innerHTML = '<pre>' + JSON.stringify(data.colors, null, 2) + '</pre>';
+
+                  // Display the image
+                  let imageContainer = document.getElementById('imageContainer');
+                  let imageElement = document.createElement('img');
+                  imageElement.src = 'data:image/png;base64,' + data.image; // Convert base64 string to image
+                  imageContainer.innerHTML = ''; // Clear previous image
+                  imageContainer.appendChild(imageElement);
               }).catch(error => console.error('Error:', error));
         });
     </script>

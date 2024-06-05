@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'appfolder'
+    'appfolder',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -75,17 +76,28 @@ WSGI_APPLICATION = 'projectfolder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'alemeno_db',
+        'USER':'postgres',
+        'PASSWORD':'postgres',
+        'HOST':'localhost',
+        'PORT':'5432'
+    }
+}
+
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'django_timetracker_2023',
-#         'USER':'postgres',
-#         'PASSWORD':'postgres',
-#         'HOST':'localhost',
-#         'PORT':'5432'
+#         'ENGINE': 'djongo',
+#         'NAME': 'alemeno_db',
+#         'ENFORCE_SCHEMA': False,
+#         'CLIENT': {
+#             'host': 'localhost',
+#             'port': 27017
+#         },
 #     }
 # }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -126,7 +138,7 @@ STATIC_ROOT = '/static'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
